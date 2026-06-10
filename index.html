@@ -1,74 +1,468 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Dr. Ben Rahman | Official Site</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 50px;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-    header {
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 10px;
-      margin-bottom: 30px;
-    }
-    h1 {
-      font-size: 32px;
-    }
-    h2 {
-      margin-top: 40px;
-      color: #0066cc;
-    }
-    a {
-      color: #0066cc;
-      text-decoration: none;
-    }
-    footer {
-      margin-top: 50px;
-      font-size: 14px;
-      color: #888;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Ekonomi Informasi 2026 - Portofolio Mahasiswa</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            transition: background 0.3s ease, color 0.2s ease;
+            line-height: 1.5;
+        }
+
+        body.dark-mode {
+            background: #0a0c10;
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .card {
+            background: #1e293b;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .navbar {
+            background: #0f172ad9;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #334155;
+        }
+
+        body.dark-mode .search-bar {
+            background: #1e293b;
+            color: #f1f5f9;
+            border-color: #475569;
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: #ffffffd9;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(145deg, #10b981, #059669);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 8px 20px -6px #059669;
+        }
+
+        .logo-text h1 {
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #065f46, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        body.dark-mode .logo-text h1 {
+            background: linear-gradient(135deg, #34d399, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .logo-text p {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .theme-toggle {
+            background: #e2e8f0;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #10b98120;
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1rem;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border: 1px solid #10b98140;
+        }
+
+        .search-container {
+            max-width: 500px;
+            margin: 2rem auto 0;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 80px;
+            border: 1px solid #cbd5e1;
+            background: white;
+            font-size: 1rem;
+            font-family: inherit;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+            transition: 0.2s;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem auto;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 0.6rem 1.4rem;
+            border-radius: 60px;
+            font-weight: 700;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        body.dark-mode .stat-card {
+            background: #1e293b;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.5rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.03);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 30px -12px rgba(0,0,0,0.2);
+            border-color: #10b981;
+        }
+
+        .student-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(145deg, #d1fae5, #a7f3d0);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #065f46;
+            margin-bottom: 1rem;
+        }
+
+        .student-nim {
+            font-size: 0.7rem;
+            font-family: monospace;
+            background: #e2e8f0;
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+        }
+
+        body.dark-mode .student-nim {
+            background: #334155;
+        }
+
+        .student-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+        }
+
+        .edit-link-hint {
+            font-size: 0.65rem;
+            color: #10b981;
+            margin-top: 12px;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 10px;
+        }
+
+        body.dark-mode .edit-link-hint {
+            border-top-color: #475569;
+        }
+
+        .no-result {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 680px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero h2 {
+                font-size: 1.6rem;
+            }
+            .student-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <h1>Dr. Ben Rahman</h1>
-    <p>Computational Intelligence | Constraint-Aware Adaptive Systems</p>
-  </header>
+<nav class="navbar">
+    <div class="logo-area">
+        <div class="logo-icon">EK</div>
+        <div class="logo-text">
+            <h1>Ekonomi Informasi 2026</h1>
+            <p>Portofolio & Proposal Bisnis Digital</p>
+        </div>
+    </div>
+    <button class="theme-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i> Mode Gelap
+    </button>
+</nav>
 
-  <section>
-    <h2>📄 Curriculum Vitae</h2>
-    <p><a href="CV_DR_BEN_20260401.pdf" target="_blank">Download My CV (PDF)</a></p>
-  </section>
+<section class="hero">
+    <div class="badge">
+        <i class="fas fa-chart-line"></i> Semester Genap 2026 | Magang Digital
+    </div>
+    <h2>Portofolio Mahasiswa <br> Ekonomi Informasi</h2>
+    <p style="margin-top: 12px; max-width: 600px; margin-left: auto; margin-right: auto;">Setiap mahasiswa membangun website bisnis digital sesuai proposal · Kreatif, Monetisasi, Siap Kerja</p>
+    
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Cari Nama atau NIM ..." autocomplete="off">
+    </div>
+</section>
 
-  <section>
-    <h2>📚 Research & Publications</h2>
-    <ul>
-      <li><a href="https://scholar.google.com/citations?hl=en&user=vG_lPuMAAAAJ&view_op=list_works&sortby=pubdate" target="_blank">Google Scholar</a></li>
-      <li><a href="https://orcid.org/0000-0002-6229-0459" target="_blank">ORCID</a></li>
-      <li><a href="https://www.scopus.com/authid/detail.uri?authorId=57432035800" target="_blank">Scopus Author</a></li>
-      <li><a href="https://www.semanticscholar.org/search?q=ben%20rahman&sort=relevance" target="_blank">Semantic Scholar</a></li>
-    </ul>
-  </section>
+<div class="container">
+    <div class="stats">
+        <div class="stat-card"><i class="fas fa-users"></i> 42 Mahasiswa Aktif</div>
+        <div class="stat-card"><i class="fas fa-globe"></i> Domain Kustom 2026</div>
+        <div class="stat-card"><i class="fas fa-rocket"></i> Siap Magang Digital</div>
+    </div>
 
-  <section>
-    <h2>📫 Contact</h2>
-    <p>Email: <a href="mailto:ben.rahman@gmail.com">ben.rahman@gmail.com</a></p>
-    <p>Website: <a href="benrahman.com" target="_blank">www.benrahman.com</a></p>
-  </section>
+    <div class="section-title">
+        <i class="fas fa-graduation-cap"></i> 
+        <span>📋 Karya Mahasiswa Ekonomi Informasi 2026</span>
+    </div>
 
-  <footer>
-    &copy; 2026 Ben Rahman. All rights reserved.
-  </footer>
+    <div class="student-grid" id="studentGrid">
+        <!-- Javascript akan mengisi 42 card mahasiswa -->
+    </div>
+    <p style="text-align: center; margin-top: 20px; font-size: 0.8rem; opacity: 0.7;">
+        <i class="fas fa-link"></i> Klik kartu mahasiswa untuk melihat website mereka masing-masing
+    </p>
+</div>
 
+<footer>
+    <p>© 2026 Ekonomi Informasi | Dosen Pengampu: Dr. H. Benrahman, B.Sc., S.Kom., MMSI, CPS | BR Labs</p>
+    <p style="margin-top: 8px;"><i class="fas fa-lightbulb"></i> Portofolio Digital Mahasiswa - Bukti Nyata Kesiapan Magang & Kerja</p>
+</footer>
 
+<script>
+    // ============================================================
+    // DATA MAHASISWA EKONOMI INFORMASI (42 orang) 
+    // Tinggal ganti LINK nya aja Bro sesuai Google Sites masing2!
+    // ============================================================
+    const mahasiswaList = [
+        { nim: "1222002008", name: "Abdurrachman Amby", link: "https://sites.google.com/view/abdurrachman-eki2026" },
+        { nim: "1232002058", name: "Ahmad Rafly", link: "https://sites.google.com/view/rafly-eki2026" },
+        { nim: "1232002022", name: "Alfarel Indra", link: "https://sites.google.com/view/alfarel-eki2026" },
+        { nim: "1232002021", name: "Angela Fiona Nikita Willar", link: "https://sites.google.com/view/angela-eki2026" },
+        { nim: "1232002014", name: "Aulia Febriyanti", link: "https://sites.google.com/view/aulia-eki2026" },
+        { nim: "1232002032", name: "Baptista Yohana Vallen", link: "https://sites.google.com/view/vallen-eki2026" },
+        { nim: "1232002046", name: "Chalimatus Sa'diyyah", link: "https://sites.google.com/view/chalimatus-eki2026" },
+        { nim: "1232002054", name: "Desta Rahayu", link: "https://sites.google.com/view/desta-eki2026" },
+        { nim: "1232002063", name: "Exel Goklas Rivollet Sihombing", link: "https://sites.google.com/view/exel-eki2026" },
+        { nim: "1232002050", name: "Fadel Setiawan Arifin", link: "https://sites.google.com/view/fadel-eki2026" },
+        { nim: "1232002005", name: "Faris Akbar", link: "https://sites.google.com/view/faris-eki2026" },
+        { nim: "1232002018", name: "Fenza Oktaviano", link: "https://sites.google.com/view/fenza-eki2026" },
+        { nim: "1232002083", name: "Hafidz Erfanda", link: "https://sites.google.com/view/hafidz-eki2026" },
+        { nim: "1232002059", name: "Hafizhah Dea Az Zahrah", link: "https://sites.google.com/view/hafizhah-eki2026" },
+        { nim: "1232002003", name: "Haryo Raafi Antarikso", link: "https://sites.google.com/view/haryo-eki2026" },
+        { nim: "1232002091", name: "Ilham Fansuri Faatih", link: "https://sites.google.com/view/ilham-eki2026" },
+        { nim: "1232002037", name: "Jihan Nabilah Rahman", link: "https://sites.google.com/view/jihan-eki2026" },
+        { nim: "1232002042", name: "Muhamad Al Ghifari", link: "https://sites.google.com/view/ghifari-eki2026" },
+        { nim: "1232002052", name: "Muhamad Azriel Saputra Irawan", link: "https://sites.google.com/view/azriel-eki2026" },
+        { nim: "1232002004", name: "Muhammad Afzaal Ghofran", link: "https://sites.google.com/view/afzaal-eki2026" },
+        { nim: "1232002034", name: "Muhammad Aghis Alfarizi", link: "https://sites.google.com/view/aghis-eki2026" },
+        { nim: "1232002023", name: "Muhammad Hadi", link: "https://sites.google.com/view/hadi-eki2026" },
+        { nim: "1232002006", name: "Muhammad Mufid Akmal", link: "https://sites.google.com/view/mufid-eki2026" },
+        { nim: "1232002031", name: "Muhammad Nawwal Fadhil", link: "https://sites.google.com/view/nawwal-eki2026" },
+        { nim: "1232002015", name: "Muhammad Rafif Amri Rasyid", link: "https://sites.google.com/view/rafif-eki2026" },
+        { nim: "1232002053", name: "Muhammad Ridho Azfa Karani", link: "https://sites.google.com/view/ridho-eki2026" },
+        { nim: "1232002029", name: "Muhammad Rizqy", link: "https://sites.google.com/view/rizqy-eki2026" },
+        { nim: "1232002061", name: "Nabila Khairun Nisa", link: "https://sites.google.com/view/nabila-eki2026" },
+        { nim: "1232002090", name: "Najma Khonsa Tsabita", link: "https://sites.google.com/view/najma-eki2026" },
+        { nim: "1232002092", name: "Nando Ageng Saputra", link: "https://sites.google.com/view/nando-eki2026" },
+        { nim: "1232002038", name: "Naura Latifa Ramadhani", link: "https://sites.google.com/view/naura-eki2026" },
+        { nim: "1232002028", name: "Nazwa Alya Zahra Azrin", link: "https://sites.google.com/view/nazwa-eki2026" },
+        { nim: "1232002089", name: "Nazwa Putri Parashati", link: "https://sites.google.com/view/nazwap-eki2026" },
+        { nim: "1232002047", name: "Rara Kholillah", link: "https://sites.google.com/view/rara-eki2026" },
+        { nim: "1232002030", name: "Rheva Alfarera Mahfud", link: "https://sites.google.com/view/rheva-eki2026" },
+        { nim: "1232002009", name: "Rizka Azizah Salma", link: "https://sites.google.com/view/rizka-eki2026" },
+        { nim: "1232002072", name: "Rizky Aulia Maharani", link: "https://sites.google.com/view/rizkya-eki2026" },
+        { nim: "1232002008", name: "Ryandha Wildan Syauqi", link: "https://sites.google.com/view/ryandha-eki2026" },
+        { nim: "1232002044", name: "Sanzio Gawini", link: "https://sites.google.com/view/sanzio-eki2026" },
+        { nim: "1232002025", name: "Vanessia Gloriana Tumbel", link: "https://sites.google.com/view/vanessia-eki2026" },
+        { nim: "1232002020", name: "Willy Jonatan Sibagariang", link: "https://sites.google.com/view/willy-eki2026" },
+        { nim: "1232002051", name: "Zovanka Chatricia", link: "https://sites.google.com/view/zovanka-eki2026" }
+    ];
+
+    const studentGrid = document.getElementById('studentGrid');
+    const searchInput = document.getElementById('searchInput');
+
+    // Fungsi untuk mengambil inisial (2 huruf pertama)
+    function getInitials(name) {
+        const parts = name.split(' ');
+        if (parts.length >= 2) {
+            return (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase();
+        }
+        return name.substring(0, 2).toUpperCase();
+    }
+
+    function renderCards(filterText = '') {
+        const filterLower = filterText.toLowerCase();
+        const filtered = mahasiswaList.filter(m => 
+            m.name.toLowerCase().includes(filterLower) || 
+            m.nim.includes(filterLower)
+        );
+
+        if (filtered.length === 0) {
+            studentGrid.innerHTML = `<div class="no-result"><i class="fas fa-frown"></i> Tidak ada mahasiswa dengan NIM/Nama "${filterText}"<br>↺ Coba kata kunci lain</div>`;
+            return;
+        }
+
+        let cardsHTML = '';
+        filtered.forEach(m => {
+            const initials = getInitials(m.name);
+            let displayName = m.name;
+            if (displayName.length > 28) {
+                displayName = displayName.substring(0, 25) + '...';
+            }
+            cardsHTML += `
+                <a href="${m.link}" class="card" target="_blank" rel="noopener noreferrer">
+                    <div class="student-avatar">${initials}</div>
+                    <div class="student-nim"><i class="fas fa-id-card"></i> ${m.nim}</div>
+                    <div class="student-name">${displayName}</div>
+                    <div class="edit-link-hint">
+                        <i class="fas fa-edit"></i> Link: ${m.link.replace('https://sites.google.com/view/', '')}
+                    </div>
+                </a>
+            `;
+        });
+        studentGrid.innerHTML = cardsHTML;
+    }
+
+    // Live search
+    searchInput.addEventListener('input', (e) => {
+        renderCards(e.target.value);
+    });
+
+    // Dark Mode toggle
+    const toggleBtn = document.getElementById('darkModeToggle');
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        if(document.body.classList.contains('dark-mode')) {
+            toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Mode Terang';
+        } else {
+            toggleBtn.innerHTML = '<i class="fas fa-moon"></i> Mode Gelap';
+        }
+    });
+
+    // Initial render
+    renderCards();
+</script>
 </body>
 </html>
-
-
-
-
