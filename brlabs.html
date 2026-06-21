@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BR Labs | Bridging Research Labs</title>
+  <style>
+    :root {
+      --navy: #061b3a;
+      --navy-light: #0b2b5c;
+      --gold: #d4af37;
+      --white: #ffffff;
+      --gray: #f4f6f8;
+      --text: #263238;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: var(--white);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: var(--gold);
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      color: var(--white);
+      padding: 90px 8%;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .hero h2 {
+      font-size: 24px;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 800px;
+      margin: auto;
+      font-size: 18px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 30px;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 14px 28px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 70px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      color: var(--navy);
+      margin-bottom: 40px;
+    }
+
+    .about {
+      background: var(--gray);
+      text-align: center;
+    }
+
+    .about p {
+      max-width: 900px;
+      margin: auto;
+      font-size: 18px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-top: 5px solid var(--gold);
+    }
+
+    .card h3 {
+      color: var(--navy);
+      margin-bottom: 15px;
+    }
+
+    .academy {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .academy .section-title {
+      color: var(--white);
+    }
+
+    .academy .card {
+      color: var(--text);
+    }
+
+    .event-highlight {
+      background: var(--gray);
+      text-align: center;
+    }
+
+    .event-box {
+      background: var(--white);
+      max-width: 900px;
+      margin: auto;
+      padding: 40px;
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.1);
+      border-left: 8px solid var(--gold);
+    }
+
+    .event-box h3 {
+      color: var(--navy);
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    .impact {
+      background: var(--white);
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 25px;
+      text-align: center;
+    }
+
+.event-hero { background: #061b3a; color: white; text-align: center; } .event-banner { width: 100%; display: block; } .event-content { padding: 50px 8%; } .event-content h1 { color: #d4af37; font-size: 34px; } .event-content h2 { font-size: 42px; margin: 15px 0; } .event-info { margin: 25px 0; display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; font-weight: bold; } .btn { display: inline-block; background: #d4af37; color: #061b3a; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: bold; }
+
+
+    .impact-item {
+      background: var(--gray);
+      padding: 30px;
+      border-radius: 16px;
+    }
+
+    .impact-item h3 {
+      font-size: 36px;
+      color: var(--gold);
+    }
+
+    footer {
+      background: var(--navy);
+      color: var(--white);
+      padding: 35px 8%;
+      text-align: center;
+    }
+
+    footer span {
+      color: var(--gold);
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        text-align: center;
+        justify-content: center;
+      }
+
+      nav {
+        margin-top: 15px;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 8px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">BR Labs</div>
+    <nav>
+    <a href="#Home">Home</a>
+    <a href="#About">About</a>
+    <a href="#CIPI">CIPI</a>
+    <a href="#Programs">Program</a>
+    <a href="#Events">Events</a>
+    <a href="#AI Tools">AI Tools</a>
+    <a href="#Publications">Publication</a>
+    <a href="#Contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <h1>BR Labs</h1>
+    <h2>Bridging Research Labs</h2>
+    <p>
+      BR Labs is an ecosystem for research, artificial intelligence, productivity,
+      innovation, and digital transformation.
+    </p>
+    <p style="margin-top:20px;">
+      <strong>Knowledge is not enough. You need the framework.</strong>
+    </p>
+    <a href="#academy" class="btn">Explore BR Labs Academy</a>
+  </section>
+
+  <section class="about" id="about">
+    <h2 class="section-title">About BR Labs</h2>
+    <p>
+      BR Labs hadir sebagai ekosistem riset dan inovasi untuk menjembatani pengetahuan,
+      teknologi, dan produktivitas. Fokus utama BR Labs adalah mengembangkan program,
+      riset, pelatihan, dan solusi berbasis Artificial Intelligence untuk membantu
+      individu, institusi, dan komunitas menjadi lebih produktif dan inovatif.
+    </p>
+  </section>
+
+  <section id="research">
+    <h2 class="section-title">Research Focus</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Artificial Intelligence</h3>
+        <p>Riset dan pengembangan AI untuk pendidikan, produktivitas, bisnis, dan masyarakat.</p>
+      </div>
+      <div class="card">
+        <h3>Productivity Intelligence</h3>
+        <p>Framework produktivitas berbasis data, AI, dan workflow automation.</p>
+      </div>
+      <div class="card">
+        <h3>Digital Innovation</h3>
+        <p>Inovasi digital untuk organisasi, komunitas, pusat studi, dan ekosistem akademik.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="academy" id="academy">
+    <h2 class="section-title">BR Labs Academy</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>AI Productivity Series</h3>
+        <p>
+          Program pembelajaran praktis untuk membangun personal branding,
+          AI assistant, dan workflow automation.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Research Excellence Series</h3>
+        <p>
+          Program untuk dosen, peneliti, dan mahasiswa dalam penulisan paper,
+          publikasi ilmiah, dan strategi riset.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Innovation Series</h3>
+        <p>
+          Program untuk membangun ide, produk digital, startup, dan transformasi organisasi.
+        </p>
+      </div>
+    </div>
+  </section>
+
+ <section class="event-hero"> <img src="Spanduk Final.png" alt="Kuliah Umum AI Agent for Education, Research, and Productivity" class="event-banner"> <div class="event-content"> <h1>AI Productivity Series #001</h1> <h2>AI Agent for Education, Research, and Productivity</h2> <p> Kuliah Umum Kolaboratif BR Labs Initiative bersama Fakultas Bahasa dan Sastra (FBS), Universitas Nasional. </p> <div class="event-info"> <span>📅 Rabu, 24 Juni 2026</span> <span>⏰ 13:00–15:00 WIB</span> <span>📍 Aula Lantai 4, Blok A</span> </div> <a href="LandingPageKuliahUMUM001.html" class="btn">Daftar / Lihat Peserta</a> </div> </section>
+
+  <section class="impact">
+    <h2 class="section-title">BR Labs Impact</h2>
+    <div class="impact-grid">
+      <div class="impact-item">
+        <h3>001</h3>
+        <p>Academy Series</p>
+      </div>
+      <div class="impact-item">
+        <h3>100+</h3>
+        <p>Expected Participants</p>
+      </div>
+      <div class="impact-item">
+        <h3>AI</h3>
+        <p>Productivity Focus</p>
+      </div>
+      <div class="impact-item">
+        <h3>CIPI</h3>
+        <p>Innovation Ecosystem</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="community">
+    <h2 class="section-title">Community</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Join BR Labs Community</h3>
+        <p>
+          Bergabung dengan komunitas BR Labs untuk mendapatkan informasi program,
+          pelatihan, riset, dan kegiatan produktivitas berbasis AI.
+        </p>
+        <!-- Ganti tanda # dengan link Google Form/WhatsApp Group -->
+        <a href="https://forms.gle/UvTYEVBpT88GCz8x7" class="btn">Join Community</a>
+      </div>
+      <div class="card">
+        <h3>CIPI Ecosystem</h3>
+        <p>
+          BR Labs mendukung pengembangan CIPI sebagai pusat studi kecerdasan,
+          produktivitas, dan inovasi.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <p><span>BR Labs</span> | Bridging Research Labs</p>
+    <p>Knowledge is not enough. You need the framework.</p>
+    <p>Email: contact@brlabs.id | Website: www.brlabs.id</p>
+  </footer>
+
+</body>
+</html>
