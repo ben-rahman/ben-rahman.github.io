@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuliah Umum AI Agent | BR Labs x CIPI</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(245, 184, 65, 0.22), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(31, 78, 121, 0.25), transparent 35%),
+        linear-gradient(135deg, #071426 0%, #0f2742 46%, #f6f7fb 46%, #ffffff 100%);
+      color: #172033;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .page {
+      width: min(1180px, 92%);
+      margin: auto;
+      padding: 32px 0 56px;
+    }
+
+    .hero {
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: 0 22px 70px rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      right: -90px;
+      top: -90px;
+      background: linear-gradient(135deg, #f5b841, #fff1bf);
+      border-radius: 50%;
+      opacity: 0.55;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0f2742;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin-bottom: 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 24px;
+      position: relative;
+      z-index: 2;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 1.05;
+      color: #0b1c30;
+      margin-bottom: 16px;
+      letter-spacing: -1.5px;
+    }
+
+    .highlight {
+      color: #d09112;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      font-size: 18px;
+      color: #475569;
+      margin-bottom: 22px;
+    }
+
+    .event-info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .info-box {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .info-box span {
+      display: block;
+      font-size: 12px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .info-box strong {
+      color: #0f2742;
+      font-size: 15px;
+    }
+
+    .hero-panel {
+      background: linear-gradient(160deg, #0f2742, #071426);
+      color: #fff;
+      border-radius: 24px;
+      padding: 26px;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .hero-panel h2 {
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+
+    .hero-panel p {
+      color: #d7e1ee;
+      font-size: 15px;
+    }
+
+    .panel-number {
+      font-size: 64px;
+      font-weight: 900;
+      color: #f5b841;
+      line-height: 1;
+      margin-top: 24px;
+    }
+
+    .section {
+      margin-top: 34px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 18px 45px rgba(15, 39, 66, 0.13);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 22px;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 18px;
+    }
+
+    .section-header h2 {
+      color: #0f2742;
+      font-size: 30px;
+    }
+
+    .section-header p {
+      color: #64748b;
+      max-width: 620px;
+    }
+
+    .participant-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .participant-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 14px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 16px;
+      transition: 0.25s ease;
+      min-height: 152px;
+    }
+
+    .participant-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(15, 39, 66, 0.14);
+      border-color: rgba(245, 184, 65, 0.8);
+    }
+
+    .number {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: #0f2742;
+      color: #f5b841;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 16px;
+    }
+
+    .card-content h3 {
+      font-size: 17px;
+      color: #0b1c30;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .card-content p {
+      color: #64748b;
+      font-size: 14px;
+      min-height: 44px;
+      margin-bottom: 12px;
+    }
+
+    .card-content a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      background: #f5b841;
+      color: #172033;
+      padding: 9px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .card-content a:hover {
+      background: #0f2742;
+      color: #fff;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .step {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .step b {
+      color: #d09112;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .step h3 {
+      color: #0f2742;
+      margin: 6px 0;
+      font-size: 18px;
+    }
+
+    .step p {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      color: rgba(255,255,255,0.88);
+      font-size: 14px;
+    }
+
+    footer strong {
+      color: #f5b841;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .event-info,
+      .participant-grid,
+      .workflow {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 24px;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .hero,
+      .section {
+        box-shadow: none;
+        border: 1px solid #ddd;
+      }
+
+      .card-content a {
+        display: none;
+      }
+
+      footer {
+        color: #333;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="badge">Event#001 · BR Labs x CIPI · Universitas Nasional</div>
+          <h1>Kuliah Umum <span class="highlight">AI Agent</span> untuk Education, Research, and Productivity</h1>
+          <p class="subtitle">
+            Program kuliah umum kolaboratif untuk memperkenalkan pemahaman awal, keterampilan praktis,
+            dan arah implementasi AI Agent melalui pembuatan landing page personal peserta.
+          </p>
+
+          <div class="event-info">
+            <div class="info-box">
+              <span>Tanggal</span>
+              <strong>Rabu, 24 Juni 2026</strong>
+            </div>
+            <div class="info-box">
+              <span>Waktu</span>
+              <strong>13.00 – 15.00 WIB</strong>
+            </div>
+            <div class="info-box">
+              <span>Output Peserta</span>
+              <strong>Landing Page Personal</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div>
+            <h2>Personal Landing Page Challenge</h2>
+            <p>
+              Setiap peserta membuat halaman profil sederhana menggunakan Google Sites
+              atau platform lain sebagai portofolio digital awal.
+            </p>
+          </div>
+          <div class="panel-number">39</div>
+          <p>Total peserta terdaftar pada daftar awal kegiatan.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Daftar Peserta</h2>
+          <p>Nama dan program studi peserta. Tombol pada setiap kartu diarahkan ke link default Google Sites personal masing-masing peserta.</p>
+        </div>
+      </div>
+
+      <div class="participant-grid">
+        
+        <article class="participant-card">
+          <div class="number">01</div>
+          <div class="card-content">
+            <h3>Sri Rahayu</h3>
+            <p>Magister Linguistik / Fakultas Bahasa dan Sastra</p>
+            <a href="https://sites.google.com/view/sri-rahayu" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">02</div>
+          <div class="card-content">
+            <h3>Dr. Amirrudin, S.Pd., M.Pd</h3>
+            <p>Sastra Inggris</p>
+            <a href="https://sites.google.com/view/amirrudin" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">03</div>
+          <div class="card-content">
+            <h3>Apriarama Sayyidinallah</h3>
+            <p>Linguistik</p>
+            <a href="https://sites.google.com/view/apriarama-sayyidinallah" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">04</div>
+          <div class="card-content">
+            <h3>Alya Zhafirah Thahirah</h3>
+            <p>Bahasa dan Sastra / Sastra Indonesia</p>
+            <a href="https://sites.google.com/view/alya-zhafirah-thahirah" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">05</div>
+          <div class="card-content">
+            <h3>Widi Widya Diningrum</h3>
+            <p>Fakultas Bahasa dan Sastra - Prodi Sastra Inggris</p>
+            <a href="https://sites.google.com/view/widi-widya-diningrum" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">06</div>
+          <div class="card-content">
+            <h3>Sekar Arum Anindhia</h3>
+            <p>Bahasa Korea / Fakultas Bahasa dan Sastra</p>
+            <a href="https://sites.google.com/view/sekar-arum-anindhia" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">07</div>
+          <div class="card-content">
+            <h3>Wawat Rahwati</h3>
+            <p>Sastra Jepang</p>
+            <a href="https://sites.google.com/view/wawat-rahwati" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">08</div>
+          <div class="card-content">
+            <h3>Nadila Annisa Fingkan</h3>
+            <p>Fakultas Bahasa dan Sastra</p>
+            <a href="https://sites.google.com/view/nadila-annisa-fingkan" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">09</div>
+          <div class="card-content">
+            <h3>Dr. Fairuz, M.Hum</h3>
+            <p>Magister Linguistik</p>
+            <a href="https://sites.google.com/view/fairuz" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">10</div>
+          <div class="card-content">
+            <h3>Zahwa Dwi Anindya</h3>
+            <p>Bahasa Korea</p>
+            <a href="https://sites.google.com/view/zahwa-dwi-anindya" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">11</div>
+          <div class="card-content">
+            <h3>Reyno Khalif Fayzar</h3>
+            <p>Fakultas Bahasa dan Sastra</p>
+            <a href="https://sites.google.com/view/reyno-khalif-fayzar" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">12</div>
+          <div class="card-content">
+            <h3>Ririn Nurhidayanti</h3>
+            <p>Bahasa dan Sastra</p>
+            <a href="https://sites.google.com/view/ririn-nurhidayanti" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">13</div>
+          <div class="card-content">
+            <h3>Ramdoni</h3>
+            <p>Sastra Jepang / Fakultas Bahasa dan Sastra</p>
+            <a href="https://sites.google.com/view/ramdoni" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">14</div>
+          <div class="card-content">
+            <h3>Raju Gustiano</h3>
+            <p>Sastra Jepang / Bahasa dan Sastra</p>
+            <a href="https://sites.google.com/view/raju-gustiano" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">15</div>
+          <div class="card-content">
+            <h3>Muhammad Syuja Rasyid</h3>
+            <p>Sastra Jepang / Mahasiswa / Bahasa dan Sastra</p>
+            <a href="https://sites.google.com/view/muhammad-syuja-rasyid" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">16</div>
+          <div class="card-content">
+            <h3>Raihan Ananda Cenu</h3>
+            <p>Sastra dan Bahasa / Sastra Jepang</p>
+            <a href="https://sites.google.com/view/raihan-ananda-cenu" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">17</div>
+          <div class="card-content">
+            <h3>Sulistiana</h3>
+            <p>Informatika</p>
+            <a href="https://sites.google.com/view/sulistiana" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">18</div>
+          <div class="card-content">
+            <h3>Martha Naufal Fitri</h3>
+            <p>Informatika</p>
+            <a href="https://sites.google.com/view/martha-naufal-fitri" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">19</div>
+          <div class="card-content">
+            <h3>Amanda Ambarwati Humaimah</h3>
+            <p>Sistem Informasi</p>
+            <a href="https://sites.google.com/view/amanda-ambarwati-humaimah" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">20</div>
+          <div class="card-content">
+            <h3>Nafisahani</h3>
+            <p>Sistem Informasi</p>
+            <a href="https://sites.google.com/view/nafisahani" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">21</div>
+          <div class="card-content">
+            <h3>Wisnu Wardani</h3>
+            <p>FBS</p>
+            <a href="https://sites.google.com/view/wisnu-wardani" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">22</div>
+          <div class="card-content">
+            <h3>Rita Susanti</h3>
+            <p>Sastra Jepang</p>
+            <a href="https://sites.google.com/view/rita-susanti" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">23</div>
+          <div class="card-content">
+            <h3>Nadia Fasha</h3>
+            <p>Sastra Inggris</p>
+            <a href="https://sites.google.com/view/nadia-fasha" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">24</div>
+          <div class="card-content">
+            <h3>Rifantxa Juniora Nurfy</h3>
+            <p>Sastra Inggris</p>
+            <a href="https://sites.google.com/view/rifantxa-juniora-nurfy" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">25</div>
+          <div class="card-content">
+            <h3>Nadhira Thauriq Fatiha</h3>
+            <p>Sastra Inggris</p>
+            <a href="https://sites.google.com/view/nadhira-thauriq-fatiha" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">26</div>
+          <div class="card-content">
+            <h3>Dr. Tetet Sulastri, S.S., M.Si</h3>
+            <p>Magister Linguistik</p>
+            <a href="https://sites.google.com/view/tetet-sulastri" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">27</div>
+          <div class="card-content">
+            <h3>Meizar Abdullah</h3>
+            <p>Sastra Jepang</p>
+            <a href="https://sites.google.com/view/meizar-abdullah" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">28</div>
+          <div class="card-content">
+            <h3>Ragil Ryadi</h3>
+            <p>Pariwisata</p>
+            <a href="https://sites.google.com/view/ragil-ryadi" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">29</div>
+          <div class="card-content">
+            <h3>Dayang Tryani Syafitri</h3>
+            <p>Sastra Inggris</p>
+            <a href="https://sites.google.com/view/dayang-tryani-syafitri" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">30</div>
+          <div class="card-content">
+            <h3>Nayshila Ferdian Kyrway</h3>
+            <p>Bahasa Korea / Fakultas Bahasa dan Sastra</p>
+            <a href="https://sites.google.com/view/nayshila-ferdian-kyrway" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">31</div>
+          <div class="card-content">
+            <h3>Zhyldha Yukasawa</h3>
+            <p>Sastra Jepang</p>
+            <a href="https://sites.google.com/view/zhyldha-yukasawa" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">32</div>
+          <div class="card-content">
+            <h3>Yesha Nayla Fitria</h3>
+            <p>Sastra Inggris</p>
+            <a href="https://sites.google.com/view/yesha-nayla-fitria" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">33</div>
+          <div class="card-content">
+            <h3>Somadi Sosrohadi</h3>
+            <p>Magister Linguistik</p>
+            <a href="https://sites.google.com/view/somadi-sosrohadi" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">34</div>
+          <div class="card-content">
+            <h3>Kayla Kenzabrina Yusuf</h3>
+            <p>Fakultas Bahasa dan Sastra</p>
+            <a href="https://sites.google.com/view/kayla-kenzabrina-yusuf" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">35</div>
+          <div class="card-content">
+            <h3>Anisa Septiyana</h3>
+            <p>Sastra Indonesia</p>
+            <a href="https://sites.google.com/view/anisa-septiyana" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">36</div>
+          <div class="card-content">
+            <h3>Siti Ashylla Wulandari</h3>
+            <p>Bahasa Korea</p>
+            <a href="https://sites.google.com/view/siti-ashylla-wulandari" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">37</div>
+          <div class="card-content">
+            <h3>Keyzora Anandita</h3>
+            <p>Bahasa Korea</p>
+            <a href="https://sites.google.com/view/keyzora-anandita" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">38</div>
+          <div class="card-content">
+            <h3>Gabriela Jovita Luna</h3>
+            <p>Bahasa dan Sastra / Bahasa Korea</p>
+            <a href="https://sites.google.com/view/gabriela-jovita-luna" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+
+        <article class="participant-card">
+          <div class="number">39</div>
+          <div class="card-content">
+            <h3>Auryn Alisha</h3>
+            <p>Bahasa Korea / Bahasa dan Sastra</p>
+            <a href="https://sites.google.com/view/auryn-alisha" target="_blank" rel="noopener">
+              Buka Landing Page Personal
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Alur Kegiatan</h2>
+          <p>Rangkaian sederhana yang bisa digunakan panitia untuk menjelaskan proses sebelum, saat, dan setelah kuliah umum.</p>
+        </div>
+      </div>
+
+      <div class="workflow">
+        <div class="step">
+          <b>Step 01</b>
+          <h3>Registrasi</h3>
+          <p>Peserta mengisi form kehadiran dan masuk ke daftar peserta resmi kegiatan.</p>
+        </div>
+        <div class="step">
+          <b>Step 02</b>
+          <h3>Pengenalan AI Agent</h3>
+          <p>Narasumber menjelaskan konsep dasar AI Agent, workflow automation, dan produktivitas digital.</p>
+        </div>
+        <div class="step">
+          <b>Step 03</b>
+          <h3>Praktik Landing Page</h3>
+          <p>Peserta membuat landing page personal menggunakan Google Sites atau platform sejenis.</p>
+        </div>
+        <div class="step">
+          <b>Step 04</b>
+          <h3>Submit Link</h3>
+          <p>Peserta mengirimkan link landing page sebagai bukti praktik dan portofolio digital.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p><strong>BR Labs</strong> · Bridging Research Labs | <strong>CIPI</strong> · Center for Intelligent Productivity and Innovation</p>
+      <p>Knowledge is not enough. You need the framework.</p>
+    </footer>
+  </main>
+</body>
+</html>
