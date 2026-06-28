@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Newsletter APPRODI - Rapat Pleno Pengurus</title>
+
+  <!--
+  ============================================================
+  TEMPLATE NEWSLETTER APPRODI
+  Cara edit cepat:
+  1. Ubah data event di bagian <script> paling bawah: const EVENT = {...}
+  2. Ganti foto di folder assets/ lalu ubah nama file di EVENT.photos
+     Contoh:
+       assets/foto-utama.jpg
+       assets/foto-pembukaan.jpg
+       assets/foto-paparan.jpg
+       assets/foto-diskusi.jpg
+       assets/foto-bersama.jpg
+  3. Upload file HTML + folder assets ke website/hosting.
+  4. Untuk share exclusive, simpan di folder/link private atau halaman yang tidak masuk menu publik.
+  ============================================================
+  -->
+
+  <style>
+    :root {
+      --gold: #c89a24;
+      --gold-light: #f5d36a;
+      --gold-dark: #8a620e;
+      --cream: #fffaf0;
+      --soft-cream: #fffdf8;
+      --ink: #1d1d1f;
+      --muted: #5d5d5d;
+      --line: rgba(200,154,36,.35);
+      --card: rgba(255,255,255,.88);
+      --shadow: 0 18px 45px rgba(91, 62, 5, .12);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(245,211,106,.18), transparent 28%),
+        radial-gradient(circle at 92% 12%, rgba(200,154,36,.13), transparent 32%),
+        linear-gradient(180deg, #fff, var(--cream));
+    }
+
+    .page {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      background: var(--soft-cream);
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      border-left: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+    }
+
+    .gold-border {
+      height: 7px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold), var(--gold-dark));
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 42px 14px;
+      border-bottom: 1px solid var(--line);
+      letter-spacing: .08em;
+      font-size: 15px;
+    }
+
+    .meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #2e2e2e;
+      font-weight: 600;
+    }
+
+    .meta-icon {
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--gold);
+      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      color: var(--gold-dark);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 34px;
+      padding: 18px 20px 8px;
+      font-size: 14px;
+      letter-spacing: .04em;
+      color: #222;
+    }
+
+    .nav span:not(:last-child)::after {
+      content: "";
+      display: inline-block;
+      height: 16px;
+      width: 1px;
+      background: var(--gold);
+      margin-left: 34px;
+      vertical-align: -3px;
+      opacity: .8;
+    }
+
+    .masthead {
+      position: relative;
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      gap: 36px;
+      align-items: center;
+      padding: 44px 58px 54px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(130deg, rgba(255,255,255,.95), rgba(255,251,238,.85)),
+        repeating-radial-gradient(circle at 96% 22%, rgba(200,154,36,.18) 0 1px, transparent 1px 9px);
+    }
+
+    .masthead::after {
+      content: "";
+      position: absolute;
+      width: 150%;
+      height: 190px;
+      left: -18%;
+      bottom: -118px;
+      border-top: 24px solid rgba(200,154,36,.55);
+      border-radius: 50%;
+      transform: rotate(-2deg);
+      pointer-events: none;
+    }
+
+    .brand {
+      border-right: 1px solid var(--line);
+      padding-right: 34px;
+      position: relative;
+      z-index: 1;
+    }
+
+.logo-image-wrap {
+  width: 180px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-image {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+    .diamond {
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, #fff0a5 0%, var(--gold-light) 22%, var(--gold) 52%, var(--gold-dark) 100%);
+      box-shadow: inset -5px -5px 12px rgba(89,56,0,.15), inset 5px 5px 10px rgba(255,255,255,.45);
+    }
+
+    .d1 { left: 32px; top: 0; }
+    .d2 { left: 0; top: 34px; }
+    .d3 { left: 64px; top: 34px; }
+    .d4 { left: 32px; top: 68px; }
+    .d5 { left: 0; top: 102px; }
+
+    .brand-name {
+      text-align: center;
+      font-size: 34px;
+      letter-spacing: .12em;
+      font-weight: 800;
+      color: var(--gold);
+      text-shadow: 0 1px 0 rgba(255,255,255,.65);
+    }
+
+    .title-block {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .main-title {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(44px, 7vw, 76px);
+      line-height: 1;
+      margin: 0;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold), var(--gold-dark));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+    }
+
+    .ornament {
+      width: min(520px, 90%);
+      margin: 20px auto 16px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      position: relative;
+    }
+
+    .ornament::after {
+      content: "";
+      width: 18px;
+      height: 18px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+      transform: rotate(45deg);
+      position: absolute;
+      left: 50%;
+      top: -8px;
+      margin-left: -9px;
+    }
+
+    .subtitle {
+      font-size: clamp(20px, 3vw, 34px);
+      letter-spacing: .12em;
+      margin: 0 0 14px;
+      color: #242424;
+    }
+
+    .tagline {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      letter-spacing: .05em;
+    }
+
+    .tagline::before,
+    .tagline::after {
+      content: "•";
+      color: var(--gold);
+      padding: 0 16px;
+      font-size: 24px;
+      vertical-align: -2px;
+    }
+
+    .content {
+      padding: 34px 58px 48px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .article-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .headline {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(33px, 4.8vw, 52px);
+      line-height: 1.1;
+      margin: 0 0 22px;
+      color: #171717;
+      letter-spacing: -.02em;
+    }
+
+    .info-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.5fr;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.78);
+      margin-bottom: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(200,154,36,.08);
+    }
+
+    .info-item {
+      padding: 16px 18px;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      border-right: 1px solid var(--line);
+      min-height: 88px;
+    }
+
+    .info-item:last-child {
+      border-right: 0;
+    }
+
+    .info-icon {
+      color: var(--gold-dark);
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .info-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .info-value {
+      font-size: 14px;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
+    .photo {
+      position: relative;
+      min-height: 180px;
+      background: linear-gradient(135deg, #f7f7f7, #eeeeee);
+      border: 2px dashed #b8b8b8;
+      border-radius: 14px;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      color: #666;
+      text-align: center;
+      margin: 0;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: absolute;
+      inset: 0;
+    }
+
+    .photo.has-image {
+      border: 0;
+      background: #ddd;
+    }
+
+    .photo-label {
+      position: relative;
+      z-index: 1;
+      font-size: 18px;
+      letter-spacing: .04em;
+      font-weight: 800;
+    }
+
+    .photo-label::before {
+      content: "📷";
+      display: block;
+      font-size: 38px;
+      opacity: .65;
+      margin-bottom: 8px;
+    }
+
+    .caption {
+      font-size: 14px;
+      text-align: center;
+      color: #555;
+      font-style: italic;
+      margin: 8px 0 18px;
+    }
+
+    .hero-photo {
+      min-height: 220px;
+    }
+
+    .body-row {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+      margin-top: 8px;
+    }
+
+    .article-text p {
+      font-size: 16px;
+      line-height: 1.62;
+      margin: 0 0 13px;
+      text-align: justify;
+    }
+
+    .photo-small {
+      min-height: 210px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 20px;
+    }
+
+    .photo-grid .photo {
+      min-height: 155px;
+    }
+
+    .wide-photo {
+      margin-top: 18px;
+      min-height: 145px;
+    }
+
+    .sidebar {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,250,238,.94)),
+        radial-gradient(circle at 110% 100%, rgba(200,154,36,.14), transparent 52%);
+      padding: 24px 24px 28px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 18px;
+    }
+
+    .sidebar-title {
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--gold-dark);
+      text-align: center;
+      font-size: 27px;
+      margin: 0 0 20px;
+    }
+
+    .agenda-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .agenda-list li {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 13px 0;
+      border-bottom: 1px dotted var(--line);
+      font-weight: 650;
+      line-height: 1.25;
+    }
+
+    .agenda-list li:last-child {
+      border-bottom: 0;
+    }
+
+    .agenda-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      box-shadow: 0 8px 16px rgba(200,154,36,.22);
+    }
+
+    .footer-callout {
+      margin: 32px 0 26px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.8);
+      border-radius: 16px;
+      display: grid;
+      grid-template-columns: 54px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 17px 22px;
+      color: #3b3b3b;
+      box-shadow: 0 10px 22px rgba(200,154,36,.07);
+    }
+.masthead-simple {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  border-bottom: 1px solid rgba(200,154,36,.25);
+}
+
+.header-banner {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+    .footer-callout .globe {
+      font-size: 26px;
+      color: var(--gold-dark);
+    }
+
+    .socials {
+      display: flex;
+      gap: 11px;
+      border-left: 1px solid var(--line);
+      padding-left: 18px;
+    }
+
+    .socials span {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+      color: white;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      justify-content: center;
+      padding: 0 30px 34px;
+      color: #2b2b2b;
+      letter-spacing: .03em;
+    }
+
+    .footer-brand::before,
+    .footer-brand::after {
+      content: "";
+      height: 1px;
+      width: 210px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    .footer-brand::after {
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .footer-brand strong {
+      color: var(--gold);
+      letter-spacing: .08em;
+    }
+
+    .admin-note {
+      margin: 28px 58px 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--gold);
+      background: rgba(255, 244, 210, .75);
+      color: #4a3a10;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 860px) {
+      .masthead {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 34px 24px;
+      }
+
+      .brand {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 0 0 28px;
+      }
+
+      .article-grid,
+      .body-row,
+      .info-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .info-item {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .info-item:last-child {
+        border-bottom: 0;
+      }
+
+      .content {
+        padding: 30px 22px 40px;
+      }
+
+      .topbar {
+        padding: 14px 18px;
+      }
+
+      .nav {
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .nav span:not(:last-child)::after {
+        margin-left: 12px;
+      }
+
+      .footer-callout {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .socials {
+        justify-content: center;
+        border-left: 0;
+        padding-left: 0;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page {
+        width: 100%;
+        border: 0;
+      }
+
+      .admin-note {
+        display: none;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .photo {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <div class="gold-border"></div>
+
+    <section class="topbar">
+      <div class="meta"><span class="meta-icon">D</span><span id="volume">Vol. 01</span></div>
+      <div class="meta"><span class="meta-icon">▦</span><span id="publishDate">27 Juni 2026</span></div>
+    </section>
+
+    <nav class="nav" id="categories"></nav>
+
+<header class="masthead-simple">
+  <img src="assets/header1.png" alt="Header Newsletter APPRODI" class="header-banner">
+</header>
+
+    <section class="content">
+      <div class="article-grid">
+        <article>
+          <h2 class="headline" id="headline"></h2>
+
+          <section class="info-strip">
+            <div class="info-item">
+              <div class="info-icon">▣</div>
+              <div>
+                <div class="info-label">Hari/Tanggal</div>
+                <div class="info-value" id="eventDate"></div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">◷</div>
+              <div>
+                <div class="info-label">Waktu</div>
+                <div class="info-value" id="eventTime"></div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">●</div>
+              <div>
+                <div class="info-label">Lokasi</div>
+                <div class="info-value" id="eventLocation"></div>
+              </div>
+            </div>
+          </section>
+
+          <figure>
+            <div class="photo hero-photo" id="photoHero">
+              <div class="photo-label">FOTO UTAMA ACARA</div>
+            </div>
+            <figcaption class="caption" id="captionHero"></figcaption>
+          </figure>
+
+          <div class="body-row">
+            <div class="article-text" id="articleBody"></div>
+
+            <figure>
+              <div class="photo photo-small" id="photoOpening">
+                <div class="photo-label">FOTO PEMBUKAAN</div>
+              </div>
+              <figcaption class="caption" id="captionOpening"></figcaption>
+            </figure>
+          </div>
+
+          <div class="photo-grid">
+            <figure>
+              <div class="photo" id="photoPresentation">
+                <div class="photo-label">FOTO PAPARAN DIREKTUR</div>
+              </div>
+              <figcaption class="caption" id="captionPresentation"></figcaption>
+            </figure>
+
+            <figure>
+              <div class="photo" id="photoDiscussion">
+                <div class="photo-label">FOTO DISKUSI / PLENO</div>
+              </div>
+              <figcaption class="caption" id="captionDiscussion"></figcaption>
+            </figure>
+          </div>
+
+          <figure>
+            <div class="photo wide-photo" id="photoGroup">
+              <div class="photo-label">FOTO BERSAMA</div>
+            </div>
+            <figcaption class="caption" id="captionGroup"></figcaption>
+          </figure>
+        </article>
+
+        <aside class="sidebar">
+          <h3 class="sidebar-title">Sorotan Agenda</h3>
+          <ul class="agenda-list" id="agendaList"></ul>
+        </aside>
+      </div>
+
+      <section class="footer-callout">
+        <div class="globe">◎</div>
+        <div id="footerCallout"></div>
+        <div class="socials" aria-label="Kanal resmi">
+          <span>WEB</span>
+          <span>in</span>
+          <span>IG</span>
+          <span>▶</span>
+          <span>@</span>
+        </div>
+      </section>
+    </section>
+
+    <footer class="footer-brand">
+      <span><strong>APPRODI</strong> – Asosiasi Profesi Produktivitas Indonesia</span>
+    </footer>
+  </main>
+
+  <div class="admin-note">
+    <strong>Published</strong> by Digital & Sistem Informasi
+  </div>
+
+  <script>
+    /*
+    ============================================================
+    DATA EVENT — BAGIAN INI SAJA YANG PERLU DIUBAH SETIAP EVENT
+    ============================================================
+    */
+
+    const EVENT = {
+      volume: "Vol. 01",
+      publishDate: "27 Juni 2026",
+
+      categories: ["Kegiatan", "Kolaborasi", "Inovasi", "Prestasi"],
+
+      headline: "Rapat Pleno Pengurus APPRODI Bahas Program Kerja Periode 2026–2031",
+
+      date: "Sabtu, 27 Juni 2026",
+      time: "09.00–13.00 WIB",
+      location: "Ruang Rapat P3D,<br>Jl. H. Naman No. 1, RT.2/RW.3,<br>Pondok Kelapa, Duren Sawit,<br>Jakarta Timur",
+
+      agenda: [
+        { icon: "👥", text: "Registrasi Peserta" },
+        { icon: "🎙", text: "Sambutan Ketua Umum" },
+        { icon: "▣", text: "Paparan Direktur" },
+        { icon: "💬", text: "Pembahasan Pleno" },
+        { icon: "✓", text: "Kesimpulan" },
+        { icon: "📷", text: "Foto Bersama" },
+        { icon: "🍽", text: "Makan Siang & Silaturahmi" }
+      ],
+
+      paragraphs: [
+        "APPRODI menyelenggarakan Rapat Pleno Pengurus untuk membahas program kerja periode 2026–2031 sebagai langkah strategis dalam memperkuat peran organisasi dan kontribusi nyata bagi produktivitas nasional.",
+        "Kegiatan ini dihadiri oleh jajaran pengurus DPP APPRODI, para direktur, serta seluruh bidang yang berperan aktif dalam penyusunan dan penyelarasan program kerja.",
+        "Agenda rapat mencakup registrasi peserta, pembukaan, sambutan Ketua Umum APPRODI, penyampaian tata acara, paparan para direktur, pembahasan pleno, kesimpulan hasil rapat, foto bersama, serta makan siang dan silaturahmi.",
+        "Kegiatan ini bertujuan menyelaraskan program, memperkuat kolaborasi, serta menegaskan komitmen APPRODI dalam mendorong produktivitas dan inovasi di Indonesia."
+      ],
+
+photos: {
+  hero: {
+    src: "assets/foto-utama.png", 
+    caption: "Foto bersama pengurus APPRODI setelah kegiatan"
+  },
+  opening: {
+    src: "assets/foto-pembukaan.jpg",
+    caption: "Ketua Umum APPRODI membuka kegiatan rapat pleno"
+  },
+  presentation: {
+    src: "assets/foto-paparan.jpg",
+    caption: "Penyerahan Buku untuk ketua APPRODI"
+  },
+  discussion: {
+    src: "assets/foto-diskusi.jpg",
+    caption: "Pembahasan pleno untuk penyelarasan program kerja"
+  },
+  group: {
+    src: "assets/foto-bersama.jpg",
+    caption: "Suasana Ketua Approdi sebelum Rapat Pleno"
+  }
+},
+
+      footerCallout: "Ikuti informasi dan kegiatan APPRODI melalui website dan kanal resmi APPRODI."
+    };
+
+    /*
+    ============================================================
+    RENDER OTOMATIS — TIDAK PERLU DIUBAH
+    ============================================================
+    */
+
+    const $ = (id) => document.getElementById(id);
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function setHTML(id, value) {
+      $(id).innerHTML = value;
+    }
+
+    function renderPhoto(containerId, captionId, photoData) {
+      const box = $(containerId);
+      const caption = $(captionId);
+      caption.textContent = photoData.caption || "";
+
+      if (photoData.src && photoData.src.trim() !== "") {
+        box.classList.add("has-image");
+        box.innerHTML = `<img src="${photoData.src}" alt="${photoData.caption || 'Foto kegiatan APPRODI'}">`;
+      }
+    }
+
+    function renderNewsletter() {
+      setText("volume", EVENT.volume);
+      setText("publishDate", EVENT.publishDate);
+      setText("headline", EVENT.headline);
+      setText("eventDate", EVENT.date);
+      setText("eventTime", EVENT.time);
+      setHTML("eventLocation", EVENT.location);
+      setText("footerCallout", EVENT.footerCallout);
+
+      $("categories").innerHTML = EVENT.categories.map(item => `<span>${item}</span>`).join("");
+
+      $("articleBody").innerHTML = EVENT.paragraphs
+        .map(paragraph => `<p>${paragraph}</p>`)
+        .join("");
+
+      $("agendaList").innerHTML = EVENT.agenda
+        .map(item => `
+          <li>
+            <span class="agenda-icon">${item.icon}</span>
+            <span>${item.text}</span>
+          </li>
+        `)
+        .join("");
+
+      renderPhoto("photoHero", "captionHero", EVENT.photos.hero);
+      renderPhoto("photoOpening", "captionOpening", EVENT.photos.opening);
+      renderPhoto("photoPresentation", "captionPresentation", EVENT.photos.presentation);
+      renderPhoto("photoDiscussion", "captionDiscussion", EVENT.photos.discussion);
+      renderPhoto("photoGroup", "captionGroup", EVENT.photos.group);
+    }
+
+    renderNewsletter();
+  </script>
+</body>
+</html>
