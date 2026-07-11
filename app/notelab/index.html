@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#123a63" />
+  <meta name="description" content="CIPI NoteLab - editor teks sederhana untuk pembelajaran dan produktivitas komunitas CIPI." />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <title>CIPI NoteLab</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --primary: #123a63;
+      --primary-hover: #0d2d4d;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #dbe3ec;
+      --editor-bg: #ffffff;
+    }
+
+    body.dark {
+      --bg: #111827;
+      --card: #1f2937;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --text: #f9fafb;
+      --muted: #cbd5e1;
+      --border: #374151;
+      --editor-bg: #111827;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    .app {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    .header {
+      background: var(--primary);
+      color: white;
+      padding: 22px 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .brand p {
+      margin: 5px 0 0;
+      opacity: 0.85;
+      font-size: 0.92rem;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      background: var(--card);
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      transition: transform 0.15s ease, background 0.2s ease;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    button.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    button.secondary:hover {
+      background: var(--bg);
+    }
+
+    .editor-wrap {
+      padding: 20px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 520px;
+      resize: vertical;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--editor-bg);
+      outline: none;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+    }
+
+    .statusbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 14px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .stats {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      .header,
+      .toolbar,
+      .editor-wrap,
+      .statusbar {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      button {
+        flex: 1 1 120px;
+      }
+
+      textarea {
+        min-height: 430px;
+      }
+    }
+  
+    .install-banner { display:none; align-items:center; justify-content:space-between; gap:12px; padding:12px 18px; background:#e8f1fb; border-bottom:1px solid var(--border); color:#123a63; }
+    .install-banner.show { display:flex; }
+    button.install { background:#15803d; }
+    .online { color:#15803d; } .offline { color:#b45309; }
+    @media (max-width:600px){ body{padding:0}.app{min-height:100dvh;border:none;border-radius:0}.toolbar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar button{width:100%;min-height:44px}textarea{min-height:calc(100dvh - 285px);resize:none;font-size:16px}}
+  </style>
+</head>
+
+<body>
+  <main class="app">
+    <header class="header">
+      <div class="brand">
+        <h1>📝 CIPI NoteLab</h1>
+        <p>Simple Text Editor for Learning and Productivity</p>
+      </div>
+      <div id="fileName">Dokumen Baru</div>
+    </header>
+
+    <section id="installBanner" class="install-banner"><span>Pasang CIPI NoteLab di Home Screen Android.</span><button id="bannerInstallBtn" class="install">Install</button></section>
+
+    <section class="toolbar">
+      <button id="newBtn">Dokumen Baru</button>
+      <button id="openBtn">Buka File</button>
+      <button id="saveBtn">Simpan .txt</button>
+      <button id="installBtn" class="install" hidden>Install App</button>
+      <button id="darkBtn" class="secondary">Mode Gelap</button>
+      <input type="file" id="fileInput" accept=".txt,text/plain" />
+    </section>
+
+    <section class="editor-wrap">
+      <textarea
+        id="editor"
+        placeholder="Mulai menulis di sini..."
+        spellcheck="true"
+      ></textarea>
+    </section>
+
+    <footer class="statusbar">
+      <div class="stats">
+        <span>Kata: <strong id="wordCount">0</strong></span>
+        <span>Karakter: <strong id="charCount">0</strong></span>
+        <span>Baris: <strong id="lineCount">1</strong></span>
+      </div>
+      <div><span id="connectionStatus" class="online">Online</span> · <span id="status">Status: Siap</span></div>
+    </footer>
+  </main>
+
+  <script>
+    const editor = document.getElementById("editor");
+    const wordCount = document.getElementById("wordCount");
+    const charCount = document.getElementById("charCount");
+    const lineCount = document.getElementById("lineCount");
+    const status = document.getElementById("status");
+    const fileName = document.getElementById("fileName");
+    const fileInput = document.getElementById("fileInput");
+    const installBtn = document.getElementById("installBtn");
+    const bannerInstallBtn = document.getElementById("bannerInstallBtn");
+    const installBanner = document.getElementById("installBanner");
+    const connectionStatus = document.getElementById("connectionStatus");
+    let deferredPrompt = null;
+    let saveTimer = null;
+
+    function updateStats() {
+      const text = editor.value;
+      const words = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+      const lines = text === "" ? 1 : text.split("\n").length;
+
+      wordCount.textContent = words;
+      charCount.textContent = text.length;
+      lineCount.textContent = lines;
+      status.textContent = "Status: Sedang mengetik";
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => { localStorage.setItem("cipiNoteLabText", editor.value); localStorage.setItem("cipiNoteLabFileName", fileName.textContent); status.textContent = "Status: Tersimpan otomatis"; }, 500);
+    }
+
+    function newDocument() {
+      if (editor.value.trim() !== "") {
+        const confirmed = confirm("Hapus isi dokumen dan membuat dokumen baru?");
+        if (!confirmed) return;
+      }
+
+      editor.value = "";
+      fileName.textContent = "Dokumen Baru";
+      updateConnectionStatus();
+    updateStats();
+      status.textContent = "Status: Dokumen baru";
+      editor.focus();
+    }
+
+    function openFile() {
+      fileInput.click();
+    }
+
+    fileInput.addEventListener("change", function () {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+
+      reader.onload = function (event) {
+        editor.value = event.target.result;
+        fileName.textContent = file.name;
+        updateStats();
+        status.textContent = "Status: File berhasil dibuka";
+      };
+
+      reader.onerror = function () {
+        alert("File tidak dapat dibaca.");
+        status.textContent = "Status: Gagal membuka file";
+      };
+
+      reader.readAsText(file);
+      fileInput.value = "";
+    });
+
+    function saveFile() {
+      const text = editor.value;
+      const suggestedName = fileName.textContent === "Dokumen Baru"
+        ? "cipi-notelab.txt"
+        : fileName.textContent;
+
+      const name = prompt("Nama file:", suggestedName);
+      if (!name) return;
+
+      const finalName = name.toLowerCase().endsWith(".txt")
+        ? name
+        : name + ".txt";
+
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const downloadLink = document.createElement("a");
+
+      downloadLink.href = url;
+      downloadLink.download = finalName;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      downloadLink.remove();
+      URL.revokeObjectURL(url);
+
+      fileName.textContent = finalName;
+      status.textContent = "Status: File berhasil disimpan";
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      const darkModeActive = document.body.classList.contains("dark");
+
+      document.getElementById("darkBtn").textContent =
+        darkModeActive ? "Mode Terang" : "Mode Gelap";
+    }
+
+    
+    function updateConnectionStatus(){ const online=navigator.onLine; connectionStatus.textContent=online?"Online":"Offline"; connectionStatus.className=online?"online":"offline"; }
+    async function installApp(){ if(!deferredPrompt){ alert("Gunakan menu Chrome lalu pilih Install app atau Tambahkan ke layar utama."); return;} deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; installBtn.hidden=true; installBanner.classList.remove("show"); }
+    window.addEventListener("beforeinstallprompt", (event)=>{ event.preventDefault(); deferredPrompt=event; installBtn.hidden=false; installBanner.classList.add("show"); });
+    window.addEventListener("appinstalled", ()=>{ deferredPrompt=null; installBtn.hidden=true; installBanner.classList.remove("show"); status.textContent="Status: Aplikasi berhasil di-install"; });
+    window.addEventListener("online", updateConnectionStatus);
+    window.addEventListener("offline", updateConnectionStatus);
+    const savedText=localStorage.getItem("cipiNoteLabText"); if(savedText!==null) editor.value=savedText;
+    const savedName=localStorage.getItem("cipiNoteLabFileName"); if(savedName) fileName.textContent=savedName;
+    if("serviceWorker" in navigator){ window.addEventListener("load", ()=>navigator.serviceWorker.register("./service-worker.js")); }
+
+    editor.addEventListener("input", updateStats);
+    document.getElementById("newBtn").addEventListener("click", newDocument);
+    document.getElementById("openBtn").addEventListener("click", openFile);
+    document.getElementById("saveBtn").addEventListener("click", saveFile);
+    document.getElementById("darkBtn").addEventListener("click", toggleDarkMode);
+    installBtn.addEventListener("click", installApp);
+    bannerInstallBtn.addEventListener("click", installApp);
+
+    updateStats();
+  </script>
+</body>
+</html>
